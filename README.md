@@ -2,6 +2,10 @@
 
 This repository demonstrates how to implement and train diffusion models for image generation, using CelebA as a reference dataset. It includes custom UNet and diffusion model implementations, configurations, training scripts, experiments, and supporting documentation. The project structure is designed to separate configurations, data, code, experiments, results, and documentation in a clear and organized manner.
 
+<p align="center">
+  <img src="./results/generated_images/steps_comparison.png" width=100%>
+</p>
+
 ## Project Structure
 
 - **configs**  
