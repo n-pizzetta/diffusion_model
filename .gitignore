@@ -1,0 +1,11 @@
+*.DS_Store
+*.venv
+*.csv
+*.npy
+*.jpg
+*.jpeg
+__pycache__/
+*.py[cod]
+notebooks/
+*.pth
+documentation/
