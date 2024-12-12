@@ -1,4 +1,7 @@
 # Diffusion Models Image Generation
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![Hugging Face](https://img.shields.io/badge/-HuggingFace-FDEE21?style=for-the-badge&logo=HuggingFace&logoColor=black)
+![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white)
 
 This repository demonstrates how to implement and train diffusion models for image generation, using CelebA as a reference dataset. It includes custom UNet and diffusion model implementations, configurations, training scripts, experiments, and supporting documentation. The project structure is designed to separate configurations, data, code, experiments, results, and documentation in a clear and organized manner.
 

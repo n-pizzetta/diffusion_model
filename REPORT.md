@@ -27,25 +27,25 @@ In diffusion models, U-Net acts as the core neural network predicting the added 
 This standardized format ensures consistent input for the diffusion process and U-Net model.
 
 ### Forward Diffusion Process
-The forward process adds noise to clean images over multiple timesteps. Let \(x_0\) be the original image and \(x_t\) the noisy image at timestep \(t\). The forward diffusion uses a noise schedule to progressively increase the variance of the Gaussian noise:
+The forward process adds noise to clean images over multiple timesteps. Let $x_0$ be the original image and $x_t$ the noisy image at timestep $t$. The forward diffusion uses a noise schedule to progressively increase the variance of the Gaussian noise:
 
-\[
+$$
 x_t = \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, \quad \epsilon \sim \mathcal{N}(0, I).
-\]
+$$
 
-Here, \(\bar{\alpha}_t\) controls the amount of noise added at timestep \(t\).
+Here, $\bar{\alpha}_t$ controls the amount of noise added at timestep $t$.
 
 ### Reverse Diffusion Process
-The model learns to reverse the noising process. Given \(x_t\), it predicts \(\epsilon_\theta(x_t, t)\), the noise at timestep \(t\). Using this prediction, we estimate \(x_0\) and refine the sample backward through time:
+The model learns to reverse the noising process. Given $x_t$, it predicts $\epsilon_\theta(x_t, t)$, the noise at timestep $t$. Using this prediction, we estimate $x_0$ and refine the sample backward through time:
 
-\[
+$$
 \hat{x}_0 = \frac{x_t - \sqrt{1-\bar{\alpha}_t} \epsilon_\theta(x_t, t)}{\sqrt{\bar{\alpha}_t}}.
-\]
+$$
 
-Then we sample \(x_{t-1}\) from the conditional distribution using the predicted noise.
+Then we sample $x_{t-1}$ from the conditional distribution using the predicted noise.
 
 ### U-Net Integration
-The U-Net model \( \epsilon_\theta \) takes as input the noisy image \(x_t\) and the timestep \(t\). The network is time-conditioned, which means it incorporates a time embedding vector into the latent space, enabling it to adapt its noise prediction to the current timestep.
+The U-Net model $ \epsilon_\theta $ takes as input the noisy image $x_t$ and the timestep $t$. The network is time-conditioned, which means it incorporates a time embedding vector into the latent space, enabling it to adapt its noise prediction to the current timestep.
 
 **Architecture Details**:
 - **Encoder Path**: Gradually downsample the image to a bottleneck layer, capturing broad semantic information.
@@ -55,11 +55,11 @@ The U-Net model \( \epsilon_\theta \) takes as input the noisy image \(x_t\) and
 ## Training Procedure
 
 ### Loss Function
-We use a mean squared error (MSE) loss between the predicted noise \(\hat{\epsilon}_\theta(x_t, t)\) and the actual noise \(\epsilon\):
+We use a mean squared error (MSE) loss between the predicted noise $\hat{\epsilon}_\theta(x_t, t)$ and the actual noise $\epsilon$:
 
-\[
+$$
 \mathcal{L} = \mathbb{E}_{x_0, t, \epsilon} \left[ \| \epsilon - \epsilon_\theta(x_t, t) \|^2 \right].
-\]
+$$
 
 Minimizing this loss trains the U-Net to accurately predict noise at each timestep.
 
