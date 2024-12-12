@@ -38,7 +38,7 @@ Here, $\bar{\alpha}_t$ controls the amount of noise added at timestep $t$.
 ### Reverse Diffusion Process
 The model learns to reverse the noising process. Given $x_t$, it predicts $\hat{\epsilon}_\theta(x_t, t)$, the noise at timestep $t$. Using this prediction, we estimate $x_0$ and refine the sample backward through time:
 
-$$\hat{x}_0 = \(x_t - \sqrt{1 - \bar{\alpha}_t} \hat{\epsilon}_\theta(x_t, t)) \/ (\sqrt{\bar{\alpha}_t}\).$$
+$$\hat{x}_0 = \(x_t - \sqrt{1 - \bar{\alpha}_t} \hat{\epsilon}_\theta(x_t, t)\) / \(\sqrt{\bar{\alpha}_t}\).$$
 
 Then we sample $x_{t-1}$ from the conditional distribution using the predicted noise.
 
