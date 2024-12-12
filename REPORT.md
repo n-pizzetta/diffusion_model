@@ -38,9 +38,7 @@ Here, $\bar{\alpha}_t$ controls the amount of noise added at timestep $t$.
 ### Reverse Diffusion Process
 The model learns to reverse the noising process. Given $x_t$, it predicts $\hat{\epsilon}_\theta(x_t, t)$, the noise at timestep $t$. Using this prediction, we estimate $x_0$ and refine the sample backward through time:
 
-$$
-\hat{x}_0 = \frac{x_t - \sqrt{1 - \bar{\alpha}_t} \hat{\epsilon}_\theta(x_t, t)}{\sqrt{\bar{\alpha}_t}}.
-$$
+$$\hat{x}_0 = \frac{x_t - \sqrt{1 - \bar{\alpha}_t} \hat{\epsilon}_\theta(x_t, t)}{\sqrt{\bar{\alpha}_t}}.$$
 
 Then we sample $x_{t-1}$ from the conditional distribution using the predicted noise.
 
@@ -57,9 +55,7 @@ The U-Net model takes $\epsilon_\theta$ as input the noisy image $x_t$ and the t
 ### Loss Function
 We use a mean squared error (MSE) loss between the predicted noise $\hat{\epsilon}_\theta(x_t, t)$ and the actual noise $\epsilon$:
 
-$$
-\mathcal{L} = \mathbb{E}_{x_0, t, \epsilon}\left[ \|\epsilon - \hat{\epsilon}_\theta(x_t, t) \|^2\right].
-$$
+$$\mathcal{L} = \mathbb{E}_{x_0, t, \epsilon}\left[ \|\epsilon - \hat{\epsilon}_\theta(x_t, t) \|^2\right].$$
 
 Minimizing this loss trains the U-Net to accurately predict noise at each timestep.
 
