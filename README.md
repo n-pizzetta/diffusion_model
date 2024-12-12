@@ -3,7 +3,7 @@
 ![Hugging Face](https://img.shields.io/badge/-HuggingFace-FDEE21?style=for-the-badge&logo=HuggingFace&logoColor=black)
 ![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white)
 
-This repository demonstrates how to implement and train diffusion models for image generation, using CelebA as a reference dataset. It includes custom UNet and diffusion model implementations, configurations, training scripts, experiments, and supporting documentation. The project structure is designed to separate configurations, data, code, experiments, results, and documentation in a clear and organized manner.
+This repository demonstrates how to implement and train diffusion models for image generation, using CelebA as a reference dataset. It includes custom UNet and diffusion model implementations, configurations, training scripts, experiments, and supporting documentation.
 
 <p align="center">
   <img src="./results/generated_images/steps_comparison.png" width=100%>
@@ -15,10 +15,10 @@ This repository demonstrates how to implement and train diffusion models for ima
   Contains YAML configuration files defining hyperparameters and other settings for training and generation. You can easily adjust parameters like image size, number of timesteps, learning rate, batch size, and more.
 
 - **data**  
-  Contains datasets and related CSV files. For CelebA, partition and attribute files are included here. The `processed` subdirectory stores preprocessed `.npy` image files ready for training, while `raw` holds the original, unprocessed images. You can find the CelebA dataset on [Kaggle](https://www.kaggle.com/datasets/jessicali9530/celeba-dataset).
+  Not in the repo, but it contains datasets and related CSV files. For CelebA, partition and attribute files are included here. The `processed` subdirectory stores preprocessed `.npy` image files ready for training, while `raw` holds the original, unprocessed images. You can find the CelebA dataset on [Kaggle](https://www.kaggle.com/datasets/jessicali9530/celeba-dataset).
 
 - **documentation**  
-  Contains research papers, notes, and additional references used to understand the theoretical background of diffusion models, UNet architectures, and related deep learning concepts.
+  Contains research papers and references used to understand the theoretical background of diffusion models, UNet architectures, and related deep learning concepts.
 
 - **experiments**  
   A sandbox directory where smaller scale tests were performed. Here, you’ll find:
@@ -28,7 +28,7 @@ This repository demonstrates how to implement and train diffusion models for ima
   These experiments helped in understanding the fundamental mechanics of diffusion models and verifying that the training loop and data pipelines work correctly before scaling up.
 
 - **image_gen.py**  
-  A standalone script that uses pre-trained UNet and diffusion models to generate new images. This script demonstrates how to load a trained model, run the reverse diffusion process, and produce high-quality synthetic images.
+  A standalone script that uses Google pre-trained UNet and diffusion models to generate new images. This script demonstrates how to load a trained model, run the reverse diffusion process, and produce high-quality synthetic images.
 
 - **models**  
   A directory for storing trained model checkpoints. This includes:
