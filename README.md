@@ -167,7 +167,6 @@ This repository demonstrates how to implement and train diffusion models for ima
 
 - The `experiments` directory is for smaller-scale or debugging tests.
 - The `documentation` folder contains theoretical references ensuring alignment with established research on diffusion models.
-- For interactive experimentation or visualization, explore the notebooks in the `notebooks` directory.
 - If the trained custom model outputs lower-quality images compared to the Google pre-trained version, you may need more data, more epochs, or further hyperparameter tuning.
 
 This repository serves as a comprehensive starting point for anyone looking to understand and implement diffusion models for image synthesis — from raw data preprocessing to final image generation.
