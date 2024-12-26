@@ -69,16 +69,15 @@ This repository demonstrates how to implement and train diffusion models for ima
    source .venv/bin/activate  # For Linux/Mac
    # or .venv\Scripts\activate  # For Windows
 
-   pip install --upgrade pip
-   pip install -r requirements.txt
+   # Install both production and dev requirements via Make
+   make install
    ```
 
 2. **Prepare Data**  
    Place your raw images in `data/raw` (e.g., `data/raw/celeba`) along with the partition file (`list_eval_partition.csv`) in `data/`. Then run:
 
    ```bash
-   cd src
-   python preprocess.py
+   python -m src.preprocess
    ```
 
    **Script Arguments** for `preprocess.py`:
@@ -91,7 +90,7 @@ This repository demonstrates how to implement and train diffusion models for ima
 
    **Example usage**:
    ```bash
-   python preprocess.py \
+   python -m preprocess \
        --n_images 2000 \
        --data_type train \
        --csv_path ../data/list_eval_partition.csv \
@@ -104,8 +103,7 @@ This repository demonstrates how to implement and train diffusion models for ima
    Adjust hyperparameters in `configs/config.yaml` if desired. Then, from `src`, run either `train_diffusion.py` or `train_unet.py`. For example:
 
    ```bash
-   cd src
-   python train_diffusion.py
+   python -m src.train_diffusion
    ```
 
    **Script Arguments** for `train_diffusion.py`:
@@ -120,7 +118,7 @@ This repository demonstrates how to implement and train diffusion models for ima
 
    **Example usage**:
    ```bash
-   python train_diffusion.py \
+   python -m train_diffusion \
        --batch_size 32 \
        --img_size 128 \
        --epochs 50 \
@@ -135,7 +133,6 @@ This repository demonstrates how to implement and train diffusion models for ima
    Once training is complete and model weights are in `models/`, use `generate.py` to generate images from your custom diffusion model. For the Google pre-trained diffusion model and UNet, check `image_gen.py` (models available on [Hugging Face](https://huggingface.co/google/ddpm-celebahq-256)).
 
    ```bash
-   cd src
    python generate.py
    ```
 
@@ -160,6 +157,42 @@ This repository demonstrates how to implement and train diffusion models for ima
 
 5. **Explore Results**  
    Look into `results/` to see generated images and logs. Compare different model checkpoints, hyperparameters, and scripts (like `train_unet.py` or `train_diffusion.py`) to see how image quality varies.
+
+---
+
+## Development & Testing
+
+A **Makefile** is provided to simplify common tasks. Once inside your virtual environment:
+
+- **Install Requirements**  
+  ```bash
+  make install
+  ```
+  This installs both production (`requirements.txt`) and development (`requirements_dev.txt`) dependencies.
+
+- **Lint**  
+  ```bash
+  make lint
+  ```
+  Runs **flake8** on `src` and `tests` to check coding style and potential errors.
+
+- **Format**  
+  ```bash
+  make format
+  ```
+  Uses **black** to auto-format code in `src` and `tests`.
+
+- **Run Tests**  
+  ```bash
+  make test
+  ```
+  Executes **pytest** in verbose mode. This ensures your scripts (like `preprocess.py`, `train_diffusion.py`, etc.) work as expected.
+
+- **Check Coverage**  
+  ```bash
+  make coverage
+  ```
+  Runs tests with **pytest-cov**, displaying a coverage report to see which parts of your code are exercised by tests.
 
 ---
 

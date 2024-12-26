@@ -7,7 +7,7 @@ import argparse
 import os
 import numpy as np
 
-def main(save_dir, timesteps, img_size):
+def main(save_dir, timesteps, img_size, noise_file):
     os.makedirs(save_dir, exist_ok=True)
 
     # Device setup
@@ -31,9 +31,17 @@ def main(save_dir, timesteps, img_size):
 
     import numpy as np
 
-    def generate_image(unet, scheduler, device, timesteps, img_size, num_visualization_images=5):
+    def generate_image(unet, scheduler, device, timesteps, img_size, noise, num_visualization_images=5):
         # Initialize a random noise tensor (starting point for generation)
-        noise = torch.randn(1, 3, img_size, img_size).to(device)
+        if noise is None:
+            noise = torch.randn(1, 3, img_size, img_size).to(device)
+            # Save noise to a .pt file so you can reuse it later
+            noise_file_path = os.path.join(save_dir, "noise_tensor.pt")
+            torch.save(noise.cpu(), noise_file_path)  # Save on CPU for portability
+            print(f"Saved noise tensor to {noise_file_path}")
+        else:
+            noise = torch.load(noise_file)
+            noise = noise.to(device)
 
         # Set the scheduler timesteps
         scheduler.set_timesteps(timesteps)
@@ -82,7 +90,7 @@ def main(save_dir, timesteps, img_size):
 
 
     print("Generating image and collecting intermediate snapshots...")
-    final_noise, snapshots = generate_image(unet, scheduler, device, timesteps, img_size)
+    final_noise, snapshots = generate_image(unet, scheduler, device, timesteps, img_size, noise=noise_file)
 
     # Sort the snapshots by timestep in descending order (from noisy to clean)
     sorted_steps = sorted(snapshots.keys(), reverse=True)
@@ -111,7 +119,7 @@ def main(save_dir, timesteps, img_size):
     plt.imshow(final_image)
     plt.axis("off")
     plt.tight_layout()
-    final_image_path = os.path.join(save_dir, f"final_generated_image.png")
+    final_image_path = os.path.join(save_dir, f"test_generated_image.png")
     plt.savefig(final_image_path)
     plt.close()
     print(f"Saved final generated image to {final_image_path}")
@@ -122,6 +130,7 @@ if __name__ == "__main__":
     parser.add_argument('--save_dir', type=str, default='results/generated_images', help='Directory to save generated images.')
     parser.add_argument('--timesteps', type=int, default=50, help='Number of timesteps for denoising.')
     parser.add_argument('--img_size', type=int, default=256, help='Image size for generation.')
+    parser.add_argument('--noise_file', type=str, default=None, help='Path to a noise tensor .pt file to use as starting point.')
     args = parser.parse_args()
 
-    main(args.save_dir, args.timesteps, args.img_size)
+    main(args.save_dir, args.timesteps, args.img_size, args.noise_file)
