@@ -83,20 +83,20 @@ This repository demonstrates how to implement and train diffusion models for ima
    **Script Arguments** for `preprocess.py`:
    - `--n_images` (int): Number of images to preprocess (default=1000)  
    - `--data_type` (str): Data type: `train`, `val`, or `test` (default="train")  
-   - `--csv_path` (str): Path to CelebA partitioning file (default="../data/list_eval_partition.csv")  
-   - `--img_size` (int): Image size (default is set from `IMAGE_SIZE` constant in code)  
-   - `--input_dir` (str): Directory containing raw images (default="../data/raw/celeba")  
-   - `--output_dir` (str): Directory to save processed images (default="../data/processed/celeba_{IMAGE_SIZE}")  
+   - `--csv_path` (str): Path to CelebA partitioning file (default="data/list_eval_partition.csv")  
+   - `--img_size` (int): Image size (default is `64`)  
+   - `--input_dir` (str): Directory containing raw images (default="data/raw/celeba")  
+   - `--output_dir` (str): Directory to save processed images (default="data/processed/celeba_64")  
 
    **Example usage**:
    ```bash
    python -m src.preprocess \
        --n_images 2000 \
        --data_type train \
-       --csv_path ../data/list_eval_partition.csv \
+       --csv_path data/list_eval_partition.csv \
        --img_size 128 \
-       --input_dir ../data/raw/celeba \
-       --output_dir ../data/processed/celeba_128
+       --input_dir data/raw/celeba \
+       --output_dir data/processed/celeba_128
    ```
 
 3. **Configure and Train**  
@@ -107,14 +107,14 @@ This repository demonstrates how to implement and train diffusion models for ima
    ```
 
    **Script Arguments** for `train_diffusion.py`:
-   - `--batch_size` (int): Batch size for training (default set by `BATCH_SIZE`)  
-   - `--img_size` (int): Image size (default set by `IMAGE_SIZE`)  
-   - `--epochs` (int): Number of epochs (default set by `EPOCHS`)  
-   - `--learning_rate` (float): Learning rate (default set by `LR`)  
-   - `--model_save_dir` (str): Directory to save model checkpoints (default is `MODEL_SAVE_DIR`)  
-   - `--num_workers` (int): Number of DataLoader workers (default set by `NUM_WORKERS`)  
-   - `--timesteps` (int): Number of diffusion timesteps (default set by `TIMESTEPS`)  
-   - `--device` (str): Device to train on (e.g. `cpu` or `cuda`; default is `DEVICE`)  
+   - `--batch_size` (int): Batch size for training (default set by `8`)  
+   - `--img_size` (int): Image size (default set by `64`)  
+   - `--epochs` (int): Number of epochs (default set by `50`)  
+   - `--learning_rate` (float): Learning rate (default set by `0.0001`)  
+   - `--model_save_dir` (str): Directory to save model checkpoints (default is "models")  
+   - `--num_workers` (int): Number of DataLoader workers (default set by `4`)  
+   - `--timesteps` (int): Number of diffusion timesteps (default set by `500`)  
+   - `--device` (str): Device to train on (e.g. `cpu` or `cuda`; default is "cpu")  
 
    **Example usage**:
    ```bash
@@ -123,7 +123,7 @@ This repository demonstrates how to implement and train diffusion models for ima
        --img_size 128 \
        --epochs 50 \
        --learning_rate 0.0002 \
-       --model_save_dir ../models/diffusion_128 \
+       --model_save_dir models/diffusion_128 \
        --num_workers 4 \
        --timesteps 1000 \
        --device cuda
@@ -137,19 +137,19 @@ This repository demonstrates how to implement and train diffusion models for ima
    ```
 
    **Script Arguments** for `generate.py`:
-   - `--img_size` (int): Image size (default from `IMAGE_SIZE`)  
-   - `--model_dir` (str): Directory containing the trained model (default=`MODEL_DIR`)  
-   - `--output_dir` (str): Directory to save generated images (default=`OUTPUT_DIR`)  
-   - `--timesteps` (int): Number of diffusion timesteps (default=`TIMESTEPS`)  
-   - `--device` (str): Device (`cpu` or `cuda`) (default=`DEVICE`)  
+   - `--img_size` (int): Image size (default from `64`)  
+   - `--model_dir` (str): Directory containing the trained model (default="models")  
+   - `--output_dir` (str): Directory to save generated images (default="results/images_custom_network")  
+   - `--timesteps` (int): Number of diffusion timesteps (default=`500`)  
+   - `--device` (str): Device (`cpu` or `cuda`) (default="cpu")  
    - `--save_interval` (int): Interval for saving images (default=50)  
 
    **Example usage**:
    ```bash
    python -m src.generate \
        --img_size 128 \
-       --model_dir ../models/diffusion_128 \
-       --output_dir ../results/generated \
+       --model_dir models/diffusion_128 \
+       --output_dir results/generated \
        --timesteps 1000 \
        --device cuda \
        --save_interval 25
@@ -196,6 +196,22 @@ A **Makefile** is provided to simplify common tasks. Once inside your virtual en
 
 ---
 
+## Generating with Google pre-trained model
+
+To get better images generated, you can use a pre-trained model. Here it is the Google Denoising Diffusion Probabilistic Models (DDPM).
+To run it simply use the following command :
+
+```bash
+python image_gen.py
+```
+**Script Arguments** for `image_gen.py`:
+  - `--save_dir` (str): Directory to save generated images (default set by "results/generated_images")  
+  - `--img_size` (int): Image size (default set by `256`)  
+  - `--timesteps` (int): Number of timesteps for denoising (default set by `50`)  
+  - `--noise_file` (str): Path to a noise tensor .pt file to use as starting point (default set by `None`)  
+
+---
+
 ## Additional Notes
 
 - The `experiments` directory is for smaller-scale or debugging tests.
@@ -204,4 +220,4 @@ A **Makefile** is provided to simplify common tasks. Once inside your virtual en
 
 This repository serves as a comprehensive starting point for anyone looking to understand and implement diffusion models for image synthesis — from raw data preprocessing to final image generation.
 
-**Happy coding and exploring!**
+**Happy coding!**

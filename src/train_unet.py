@@ -45,7 +45,6 @@ class CelebADataset(Dataset):
 def train_unet(
     batch_size, epochs, img_size, learning_rate, model_save_dir, num_workers, device
 ):
-
     model = UNet(in_channels=3, out_channels=3).to(device)
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)

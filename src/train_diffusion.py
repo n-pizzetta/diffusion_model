@@ -54,7 +54,7 @@ def train(
     device,
 ):
     # Prepare data
-    dataset = CelebADataset(f"../data/processed/celeba_{img_size}")
+    dataset = CelebADataset(f"data/processed/celeba_{img_size}")
     dataloader = DataLoader(
         dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers
     )

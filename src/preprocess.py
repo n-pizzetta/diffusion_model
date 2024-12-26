@@ -58,7 +58,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--csv_path",
         type=str,
-        default="../data/list_eval_partition.csv",
+        default="data/list_eval_partition.csv",
         help="Path to CelebA partitioning file",
     )
     parser.add_argument(
@@ -67,13 +67,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--input_dir",
         type=str,
-        default="../data/raw/celeba",
+        default="data/raw/celeba",
         help="Directory containing raw images",
     )
     parser.add_argument(
         "--output_dir",
         type=str,
-        default=f"../data/processed/celeba_{IMAGE_SIZE}",
+        default=f"data/processed/celeba_{IMAGE_SIZE}",
         help="Directory to save processed images",
     )
     args = parser.parse_args()

@@ -5,5 +5,5 @@ timesteps: 500
 image_size: 64
 device: 'cpu'
 num_workers: 4
-model_save_dir: '../models'
-output_dir: '../results/images_custom_network'
+model_save_dir: 'models'
+output_dir: 'results/images_custom_network'
