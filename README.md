@@ -90,7 +90,7 @@ This repository demonstrates how to implement and train diffusion models for ima
 
    **Example usage**:
    ```bash
-   python -m preprocess \
+   python -m src.preprocess \
        --n_images 2000 \
        --data_type train \
        --csv_path ../data/list_eval_partition.csv \
@@ -118,7 +118,7 @@ This repository demonstrates how to implement and train diffusion models for ima
 
    **Example usage**:
    ```bash
-   python -m train_diffusion \
+   python -m src.train_diffusion \
        --batch_size 32 \
        --img_size 128 \
        --epochs 50 \
@@ -133,7 +133,7 @@ This repository demonstrates how to implement and train diffusion models for ima
    Once training is complete and model weights are in `models/`, use `generate.py` to generate images from your custom diffusion model. For the Google pre-trained diffusion model and UNet, check `image_gen.py` (models available on [Hugging Face](https://huggingface.co/google/ddpm-celebahq-256)).
 
    ```bash
-   python generate.py
+   python -m src.generate
    ```
 
    **Script Arguments** for `generate.py`:
@@ -146,7 +146,7 @@ This repository demonstrates how to implement and train diffusion models for ima
 
    **Example usage**:
    ```bash
-   python generate.py \
+   python -m src.generate \
        --img_size 128 \
        --model_dir ../models/diffusion_128 \
        --output_dir ../results/generated \
